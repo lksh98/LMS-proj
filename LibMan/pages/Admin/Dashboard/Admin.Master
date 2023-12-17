@@ -1,0 +1,292 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="LibMan.pages.Admin.Dashboard.Admin1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="utf-8">
+    <%: Styles.Render("~/bundles/AdminCss") %>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="loaderShow">
+        <div class="loader"></div>
+    </div>
+    <form id="form1" runat="server" autocomplete="off">
+        <asp:ScriptManager ID="ScriptManager1" EnablePartialRendering="true"  EnableCdn="true" runat="server"></asp:ScriptManager>
+        <asp:HiddenField ID="hdn_Menus" runat="server" />
+        <asp:HiddenField ID="hdn_Type" runat="server" />
+        <asp:HiddenField ID="hdn_usrID" runat="server" />
+        <asp:HiddenField ID="hdn_currenturl" runat="server" />
+        <header class="header">
+            <div class="logo-wrapper">
+                <a href="#" class="logo">
+                    <img src="/pages/Admin/Images/logo.png" alt="Bluemoon Admin Dashboard" class=" float-left" />
+                    <h3 class="text-white mt-1 ml-2 float-left"><span class="ThemeFontFamilyHedding">Lib-Man</span></h3>
+                </a>
+
+            </div>
+            <div class="header-items">
+                <!-- Custom search start -->
+                <div class="custom-search">
+                    <input type="text" id="txt_search" class="search-query" placeholder="Search here ...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <!-- Custom search end -->
+
+                <!-- Header actions start -->
+                
+                    <div class="dropdown click-nav">
+                        <a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
+                            <i class="fas fa-bell"></i>
+
+                            <span class=""></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right lrg" aria-labelledby="notifications">
+                          <%--  <div class="dropdown-menu-header">
+                                Notifications
+                            </div>--%>
+                            <ul class="header-notifications" id="notifylist">
+                                <li>
+                                    <%-- <a href="#">
+                                        <div class="user-img away">
+                                            <img src="/pages/Admin/Images/user21.png" alt="User" />
+                                        </div>
+                                        <div class="details">
+                                            <div class="user-title">Abbott</div>
+                                            <div class="noti-details">Membership has been ended.</div>
+                                            <div class="noti-date">Oct 20, 07:30 pm</div>
+                                        </div>
+                                    </a>--%>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <ul class="header-actions">
+                    <%-- <li class="dropdown">
+                        <a href="#" id="Task" data-toggle="dropdown" aria-haspopup="true">
+                            <i class="fas fa-box"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right lrg" aria-labelledby="notifications">
+                            <div class="dropdown-menu-header">
+                                Tasks (05)
+                            </div>
+                            <ul class="header-tasks">
+                                <li>
+                                    <p>#48 - Dashboard UI<span>90%</span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                                            <span class="sr-only">90% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p>#95 - Alignment Fix<span>60%</span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p>#7 - Broken Button<span>40%</span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>--%>
+                    <li class="dropdown">
+                        <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
+                            <span class="user-name" runat="server" id="Span_Name"></span>
+                            <span class="avatar" runat="server" id="span_ShortName"><span class="status busy"></span></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userSettings">
+                            <div class="header-profile-actions">
+                                <div class="header-user-profile">
+                                    <div class="header-user" runat="server" id="div_profimg">
+                                        <img runat="server" id="usr_image" src="/pages/Admin/Images/user.png" alt="" />
+                                    </div>
+                                    <h5 runat="server" id="lbl_Name" class="text-center"></h5>
+                                    <p runat="server" id="lbl_Type" class="text-center"></p>
+                                </div>
+                                <a href="/pages/user/profile.aspx"><i class="fas fa-user"></i>My Profile</a>
+
+                                <a id="A_logOut" href="#"><i class="fas fa-sign-out-alt"></i>Sign Out</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Header actions end -->
+            </div>
+        </header>
+        <!-- Header end -->
+
+        <!-- Container fluid start -->
+        <div class="container-fluid">
+
+            <!-- Navigation start -->
+            <nav class="navbar navbar-expand-lg custom-navbar">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bluemoonNavbar" aria-controls="bluemoonNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </span>
+                </button>
+                <div class="navbar-collapse collapse" id="bluemoonNavbar">
+                    <ul class="navbar-nav" id="Ul_menu">
+                    </ul>
+                </div>
+            </nav>
+            <!-- Navigation end -->
+
+            <div class="main-container">
+
+                <!-- Page header start -->
+                <div class="page-header Dr-das">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item " id="div_title">Home</li>
+
+                    </ol>
+                     <ul class="app-actions">
+                        <li>
+                            <select class="nav-select d-none " id="select_date">
+                                <option value="0">Today</option>
+                                <option value="1">Yesterday</option>
+                                <option value="7">Last 7 Days</option>
+                                <option value="30">Last 30 Days</option>
+                                <option value="180">Last 6 Months</option>
+                            </select>
+                        </li>
+                       <%--    <li>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Print">
+                                <i class="fas fa-print"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Download CSV">
+                                <i class="fas fa-cloud-download-alt"></i>
+                            </a>
+                        </li>--%>
+                    </ul>
+                </div>
+                <!-- Page header end -->
+
+                <!-- Content wrapper start -->
+                <div class="content-wrapper">
+
+                    <!-- Fixed body scroll start -->
+                    <div class="fixedBodyScroll">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                    <!-- Fixed body scroll end -->
+
+                </div>
+                <!-- Content wrapper end -->
+
+            </div>
+
+
+            <!-- Footer start -->
+            <footer class="main-footer">© Powered By - Asmi Global Softwares <script>document.write(new Date().getFullYear())</script> </footer>
+            <!-- Footer end -->
+
+        </div>
+        <div class="MsgPopUp">
+        </div>
+
+        <%: Scripts.Render("~/bundles/modernizr") %>
+        <script src="/pages/Admin/JS/AdminMaster.js"></script>
+     
+
+
+        <script>
+            $(function () {
+                updateNotificationCount();
+            });
+
+
+            //$(document).on('click', '#notifications', function () {
+            $("#notifications").click(function () {
+                if ($('#notifications span').text() != "") {
+                    var update = jqPost("/Classes/Services.asmx/UpdateNotification", "{'usrid':'" + $('#hdn_usrID').val() + "'}");
+                    $('#notifications span').html('0');
+                    //$('#notifications span').removeClass('count-label');
+                }
+                else {
+                  //  $('#notifylist').html('');
+                    $('#notifylist').html($('<li class="ml-2">No data available!!!</li>'));
+                }
+            });
+
+            function updateNotificationCount() {
+                $('#notifylist').empty();
+                $('#notifylist').append($('<li class="ml-5">Loading...</li>'));
+                console.log('update1');
+                $.ajax({
+                    type: 'POST',
+                    url: '/Classes/Services.asmx/GetNotification',
+                    data: '{"usrid":"' + $("#hdn_usrID").val() + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var obj = eval("(" + response.d + ")");
+                        $('#notifylist').empty();
+
+                        if (obj.Table1.length > 0) {
+                            var html = "";
+                            var max = 35;
+
+                            $.each(obj.Table1, function (SRow, SVal) {
+                                var count = SVal.notification_msg.length;
+                              if (count > max) {
+                                  notification = SVal.notification_msg.slice(0, max) + '...';
+                                 // alert(notification);
+                                }
+                              html += '<li data-toggle="tooltip" data-placement="left" title="' + SVal.notification_msg + '"><a href="#" ><div class="details"><div class="noti-details">' + notification + '</div></div></a></li>';
+                            });
+                            $('#notifications span').html(obj.Table11[0].count);
+                            $('#notifications span').addClass('count-label');
+                            $('#notifylist').html(html);
+                        }
+                        else {
+                            $('#notifylist').append($('<li class="ml-2">No data available!!!</li>'));
+                            $('#notifications span').html('');
+                            $('#notifications span').removeClass('count-label');
+                        }
+                        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+          
+        
+            window.onload = (event) => {
+                $(".loaderShow").fadeOut();
+
+            };
+            
+        </script>
+       
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder_BottomScripts" runat="server">
+        </asp:ContentPlaceHolder>
+         
+    </form>
+
+</body>
+</html>
+

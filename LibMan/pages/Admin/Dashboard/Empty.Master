@@ -1,0 +1,55 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Empty.Master.cs" Inherits="LibMan.pages.Admin.Dashboard.Empty" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%: Styles.Render("~/bundles/AdminCss") %>
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="PopupIframebody">
+    <div class="div_loader loader"></div>
+    <img class="loader_img loader" src="../../../Image/wheel_24x24.gif" />
+    <form id="form1" runat="server" autocomplete="off">
+		<asp:ScriptManager ID="ScriptManager1" EnablePartialRendering="true" runat="server"></asp:ScriptManager>
+        <asp:HiddenField ID="hdn_usrID" runat="server" />
+		<asp:HiddenField ID="hdn_Type" runat="server" />
+		<asp:HiddenField ID="hdn_currenturl" runat="server" />
+		<!-- Header end -->
+		<!-- Container fluid start -->
+		<div class="container-fluid">
+			<div class="main-container">
+				<!-- Content wrapper start -->
+				<div class="content-wrapper">
+					<!-- Fixed body scroll start -->
+					<div class="fixedBodyScroll">
+						<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+						</asp:ContentPlaceHolder>
+					</div>
+					<!-- Fixed body scroll end -->
+				</div>
+				<!-- Content wrapper end -->
+			</div>
+		</div>
+		<div class="MsgPopUp">
+        </div>
+        <%: Scripts.Render("~/bundles/modernizr") %>
+		<%--<script src="/View/Admin/JS/AdminMaster.js"></script>--%>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder_BottomScripts" runat="server">
+   
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+	<script>
+
+		$(function () {
+
+			$('#hdn_usrID').val(fn_getCookie('LibID'));
+		});
+	</script>
+</html>
